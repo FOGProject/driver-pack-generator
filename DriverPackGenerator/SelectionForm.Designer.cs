@@ -47,20 +47,86 @@ namespace DriverPackGenerator
         /// </summary>
         private void InitializeComponent()
         {
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.NameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProducerCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GUIDCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescriptionCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // Form1
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NameCol,
+            this.ProducerCol,
+            this.IDCol,
+            this.GUIDCol,
+            this.DescriptionCol});
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.Size = new System.Drawing.Size(657, 356);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // NameCol
+            // 
+            this.NameCol.HeaderText = "Name";
+            this.NameCol.Name = "NameCol";
+            this.NameCol.ReadOnly = true;
+            // 
+            // ProducerCol
+            // 
+            this.ProducerCol.HeaderText = "Producer";
+            this.ProducerCol.Name = "ProducerCol";
+            this.ProducerCol.ReadOnly = true;
+            // 
+            // IDCol
+            // 
+            this.IDCol.HeaderText = "ID";
+            this.IDCol.Name = "IDCol";
+            this.IDCol.ReadOnly = true;
+            // 
+            // GUIDCol
+            // 
+            this.GUIDCol.HeaderText = "GUID";
+            this.GUIDCol.Name = "GUIDCol";
+            this.GUIDCol.ReadOnly = true;
+            // 
+            // DescriptionCol
+            // 
+            this.DescriptionCol.HeaderText = "Description";
+            this.DescriptionCol.Name = "DescriptionCol";
+            this.DescriptionCol.ReadOnly = true;
+            // 
+            // SelectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(657, 356);
-            this.Name = "Form1";
+            this.Controls.Add(this.dataGridView1);
+            this.Name = "SelectionForm";
             this.Text = "Driver Pack Generator";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProducerCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GUIDCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DescriptionCol;
     }
 }
 

@@ -17,14 +17,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DriverPackGenerator
@@ -34,6 +26,16 @@ namespace DriverPackGenerator
         public SelectionForm()
         {
             InitializeComponent();
+            AddDevices();
+        }
+
+        public void AddDevices()
+        {
+            var devices = DeviceFinder.PopulateDevices();
+            foreach (var device in devices)
+            {
+                dataGridView1.Rows.Add(device.Name, device.Provider, device.ID, device.ClassGUID, device.Description);
+            }
         }
     }
 }

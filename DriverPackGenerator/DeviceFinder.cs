@@ -19,9 +19,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Management;
 
 namespace DriverPackGenerator
 {
@@ -31,8 +29,31 @@ namespace DriverPackGenerator
         {
             var devices = new List<Device>();
 
+            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPSignedDriver");
+
+            foreach (var obj in searcher.Get())
+            {
+                var name = GetProperty(obj, "FriendlyName");
+                var id = GetProperty(obj, "DeviceID");
+                var description = GetProperty(obj, "Description");
+                var classGUID = GetProperty(obj, "ClassGuid");
+                var provider = GetProperty(obj, "DriverProviderName");
+
+                var device = new Device(name, id, classGUID, provider, description);
+
+                devices.Add(device);
+            }
 
             return devices;
-        } 
+        }
+
+        private static string GetProperty(ManagementBaseObject obj, string property)
+        {
+            var value = (obj.GetPropertyValue(property) == null)
+                            ? "NA"
+                            : obj.GetPropertyValue(property).ToString();
+
+            return value;
+        }
     }
 }
