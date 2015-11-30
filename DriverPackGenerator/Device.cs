@@ -48,6 +48,7 @@ namespace DriverPackGenerator
 
             PopulateFiles();
             Files = Files.Distinct().ToList();
+            Files.RemoveAll(s => !s.Contains("."));
         }
 
         private string NormalizeGUID(string guid)
@@ -159,6 +160,33 @@ namespace DriverPackGenerator
                 line = line.Remove(index, text.Length);
 
             return line;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashString = Description + INF + INFSection;
+
+            return hashString.GetHashCode();
+        }
+
+        public override bool Equals(System.Object obj)
+        {
+            // If parameter is null return false.
+            if (obj == null)
+            {
+                return false;
+            }
+
+            // If parameter cannot be cast to Point return false.
+            Device d = obj as Device;
+            // If parameter is null return false:
+            if (d == null)
+            {
+                return false;
+            }
+
+            // Return true if the fields match:
+            return (d.Description.Equals(Description) && d.INF.Equals(INF) && d.INFSection.Equals(INFSection));
         }
 
     }
