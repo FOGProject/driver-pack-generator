@@ -60,9 +60,9 @@ namespace DriverPackGenerator
             this.descriptionCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.includeCol = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.currentPgrs = new System.Windows.Forms.TabPage();
-            this.saveBtn = new MetroButton();
-            this.currentLbl = new MetroFramework.Controls.MetroLabel();
+            this.saveBtn = new MetroFramework.Controls.MetroButton();
             this.deviceLbl = new MetroFramework.Controls.MetroLabel();
+            this.currentLbl = new MetroFramework.Controls.MetroLabel();
             this.progressBar2 = new MetroFramework.Controls.MetroProgressBar();
             this.totalPgrs = new MetroFramework.Controls.MetroProgressBar();
             this.tabControl.SuspendLayout();
@@ -179,7 +179,6 @@ namespace DriverPackGenerator
             // 
             this.currentPgrs.Controls.Add(this.saveBtn);
             this.currentPgrs.Controls.Add(this.deviceLbl);
-
             this.currentPgrs.Controls.Add(this.currentLbl);
             this.currentPgrs.Controls.Add(this.progressBar2);
             this.currentPgrs.Controls.Add(this.totalPgrs);
@@ -200,25 +199,15 @@ namespace DriverPackGenerator
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
-
-
-            //
+            // 
             // deviceLbl
-            //
             // 
             this.deviceLbl.AutoSize = true;
             this.deviceLbl.Location = new System.Drawing.Point(6, 13);
             this.deviceLbl.Name = "deviceLbl";
             this.deviceLbl.Size = new System.Drawing.Size(42, 19);
             this.deviceLbl.TabIndex = 2;
-            this.deviceLbl.Text = "label1";
-
-            // totalPgrs
-            // 
-            this.totalPgrs.Location = new System.Drawing.Point(6, 45);
-            this.totalPgrs.Name = "totalPgrs";
-            this.totalPgrs.Size = new System.Drawing.Size(640, 23);
-            this.totalPgrs.TabIndex = 0;
+            this.deviceLbl.Text = "Device";
             // 
             // currentLbl
             // 
@@ -227,7 +216,7 @@ namespace DriverPackGenerator
             this.currentLbl.Name = "currentLbl";
             this.currentLbl.Size = new System.Drawing.Size(42, 19);
             this.currentLbl.TabIndex = 2;
-            this.currentLbl.Text = "label1";
+            this.currentLbl.Text = "File";
             // 
             // progressBar2
             // 
@@ -235,7 +224,13 @@ namespace DriverPackGenerator
             this.progressBar2.Name = "progressBar2";
             this.progressBar2.Size = new System.Drawing.Size(640, 23);
             this.progressBar2.TabIndex = 1;
-
+            // 
+            // totalPgrs
+            // 
+            this.totalPgrs.Location = new System.Drawing.Point(6, 45);
+            this.totalPgrs.Name = "totalPgrs";
+            this.totalPgrs.Size = new System.Drawing.Size(640, 23);
+            this.totalPgrs.TabIndex = 0;
             // 
             // SelectionForm
             // 

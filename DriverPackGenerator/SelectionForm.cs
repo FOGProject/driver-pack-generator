@@ -37,22 +37,6 @@ namespace DriverPackGenerator
             AddDevices();
             searchThread = new Thread(SaveDrivers);
             devices = devices.Distinct().ToList();
-
-            foreach (var device in devices)
-            {
-                var duplicateFile = new List<string>();
-
-                foreach (var file in device.Files)
-                {
-                    if(file.Contains("32") && device.Files.Contains(file.Replace("32", "64")))
-                        duplicateFile.Add(file);
-                }
-
-                foreach (var file in duplicateFile)
-                {
-                    //device.Files.Remove(file);
-                }
-            }
         }
 
         private void AddDevices()
@@ -77,7 +61,7 @@ namespace DriverPackGenerator
             totalPgrs.Invoke(new Action(() => totalPgrs.Value = 0));
             progressBar2.Invoke(new Action(() => progressBar2.Value = 0));
 
-            var savePath = Path.Combine(System.Reflection.Assembly.GetEntryAssembly().Location, "BackUp");
+            var savePath = @"";
             Directory.CreateDirectory(savePath);
             totalPgrs.Invoke(new Action(() => totalPgrs.Maximum = devices.Count));
 
