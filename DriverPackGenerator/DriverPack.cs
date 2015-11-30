@@ -17,16 +17,42 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DriverPackGenerator
 {
 
     class DriverPack
     {
+
+        public DriverPack(string filePath)
+        {
+            
+        }
+
+        public bool StageFile(string filePath)
+        {
+            return false;
+        }
+
+        public bool UnStageFile(string filePath)
+        {
+            return false;
+        }
+
+        public bool Commit(string message)
+        {
+            return false;
+        }
+
+        public List<string> GetDeviceList()
+        {
+            return new List<string>();
+        }
+
+        public bool DeleteDriver(string id)
+        {
+            return false;
+        }
     }
 }

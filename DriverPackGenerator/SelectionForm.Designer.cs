@@ -48,11 +48,12 @@ namespace DriverPackGenerator
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.NameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.INFCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.INFSecCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProducerCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GUIDCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DescriptionCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FilesCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,11 +64,12 @@ namespace DriverPackGenerator
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NameCol,
+            this.INFCol,
+            this.INFSecCol,
             this.ProducerCol,
-            this.IDCol,
             this.GUIDCol,
-            this.DescriptionCol});
+            this.DescriptionCol,
+            this.FilesCol});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
@@ -76,23 +78,23 @@ namespace DriverPackGenerator
             this.dataGridView1.Size = new System.Drawing.Size(657, 356);
             this.dataGridView1.TabIndex = 0;
             // 
-            // NameCol
+            // INFCol
             // 
-            this.NameCol.HeaderText = "Name";
-            this.NameCol.Name = "NameCol";
-            this.NameCol.ReadOnly = true;
+            this.INFCol.HeaderText = "INF";
+            this.INFCol.Name = "INFCol";
+            this.INFCol.ReadOnly = true;
+            // 
+            // INFSecCol
+            // 
+            this.INFSecCol.HeaderText = "INF Section";
+            this.INFSecCol.Name = "INFSecCol";
+            this.INFSecCol.ReadOnly = true;
             // 
             // ProducerCol
             // 
             this.ProducerCol.HeaderText = "Producer";
             this.ProducerCol.Name = "ProducerCol";
             this.ProducerCol.ReadOnly = true;
-            // 
-            // IDCol
-            // 
-            this.IDCol.HeaderText = "ID";
-            this.IDCol.Name = "IDCol";
-            this.IDCol.ReadOnly = true;
             // 
             // GUIDCol
             // 
@@ -105,6 +107,12 @@ namespace DriverPackGenerator
             this.DescriptionCol.HeaderText = "Description";
             this.DescriptionCol.Name = "DescriptionCol";
             this.DescriptionCol.ReadOnly = true;
+            // 
+            // FilesCol
+            // 
+            this.FilesCol.HeaderText = "Files";
+            this.FilesCol.Name = "FilesCol";
+            this.FilesCol.ReadOnly = true;
             // 
             // SelectionForm
             // 
@@ -122,11 +130,12 @@ namespace DriverPackGenerator
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn INFCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn INFSecCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProducerCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IDCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn GUIDCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescriptionCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FilesCol;
     }
 }
 

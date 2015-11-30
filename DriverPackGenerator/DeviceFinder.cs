@@ -17,7 +17,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-using System;
 using System.Collections.Generic;
 using System.Management;
 
@@ -33,19 +32,20 @@ namespace DriverPackGenerator
 
             foreach (var obj in searcher.Get())
             {
-                var name = GetProperty(obj, "FriendlyName");
-                var id = GetProperty(obj, "DeviceID");
+                var inf = GetProperty(obj, "InfName");
                 var description = GetProperty(obj, "Description");
                 var classGUID = GetProperty(obj, "ClassGuid");
                 var provider = GetProperty(obj, "DriverProviderName");
 
-                var device = new Device(name, id, classGUID, provider, description);
+                if(classGUID.Equals("NA") || inf.Equals("NA")) continue;
+                var device = new Device(inf, classGUID, null, provider, description);
 
                 devices.Add(device);
             }
 
             return devices;
         }
+
 
         private static string GetProperty(ManagementBaseObject obj, string property)
         {

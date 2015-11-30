@@ -29,12 +29,15 @@ namespace DriverPackGenerator
             AddDevices();
         }
 
-        public void AddDevices()
+        private void AddDevices()
         {
             var devices = DeviceFinder.PopulateDevices();
             foreach (var device in devices)
             {
-                dataGridView1.Rows.Add(device.Name, device.Provider, device.ID, device.ClassGUID, device.Description);
+                if(device.ClassGUID.Equals("{NA}")) continue;
+                if (device.INF.Equals("NA")) continue;
+
+                dataGridView1.Rows.Add(device.INF, device.INFSection, device.Provider, device.ClassGUID, device.Description, device.Files.Count);
             }
         }
     }
