@@ -19,6 +19,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 
 namespace DriverPackGenerator
 {
@@ -36,6 +37,8 @@ namespace DriverPackGenerator
             var data = new Dictionary<string, List<string>>();
             section = "[" + section + "]";
             var start = false;
+            var lineBRK = false;
+            var prepend = "";
             foreach (var line in _lines)
             {
                 if(string.IsNullOrWhiteSpace(line)) continue;
@@ -50,13 +53,28 @@ namespace DriverPackGenerator
 
                 if (!start) continue;
 
-                AddData(data, line);
+                lineBRK = line.EndsWith("\\");
+
+                var lineFiltered = line.Replace("\\", "");
+
+                
+                var tag = AddData(data, prepend + lineFiltered);
+
+                if (lineBRK)
+                {
+                    if(!string.IsNullOrEmpty(tag))
+                        prepend = tag + "=";
+                }
+                else
+                {
+                    prepend = "";
+                }
             }
 
             return data;
         }
 
-        private void AddData(Dictionary<string, List<string>> data, string line)
+        private string AddData(Dictionary<string, List<string>> data, string line)
         {
             // Strip out comments
             var commentIndex = line.IndexOf(';');
@@ -65,7 +83,7 @@ namespace DriverPackGenerator
                 line = line.Substring(0, commentIndex);
             }
 
-            if (line.Length == 0) return;
+            if (line.Length == 0) return null;
 
             // Strip out the tag and =
             var tag = "";
@@ -87,6 +105,8 @@ namespace DriverPackGenerator
 
                 data[tag].Add(trimmed);
             }
+
+            return tag;
         }
     }
 }

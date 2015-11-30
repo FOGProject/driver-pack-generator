@@ -37,6 +37,22 @@ namespace DriverPackGenerator
             AddDevices();
             searchThread = new Thread(SaveDrivers);
             devices = devices.Distinct().ToList();
+
+            foreach (var device in devices)
+            {
+                var duplicateFile = new List<string>();
+
+                foreach (var file in device.Files)
+                {
+                    if(file.Contains("32") && device.Files.Contains(file.Replace("32", "64")))
+                        duplicateFile.Add(file);
+                }
+
+                foreach (var file in duplicateFile)
+                {
+                    //device.Files.Remove(file);
+                }
+            }
         }
 
         private void AddDevices()
@@ -73,13 +89,33 @@ namespace DriverPackGenerator
                 var driverDir = Path.Combine(savePath, devices[i].Description);
                 Directory.CreateDirectory(driverDir);
 
-                SaveFiles(devices[i], driverDir);
+                var root = Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.Windows));
+                var winDir = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+
+                var searchWeights = new List<string>
+                    {
+                       Path.Combine(winDir, "INF"),
+                        Path.Combine(winDir, "system32", "DriverStore", "FileRepository"),
+                        Path.Combine(winDir, "system32", "drivers"),
+                        Path.Combine(winDir, "system32", "CatRoot"),
+                        Path.Combine(winDir, "system32"),
+                        Path.Combine(winDir, "Help"),
+                        Path.Combine(winDir, "Fonts"),
+                        Path.Combine(winDir, "system"),
+                        Path.Combine(winDir, "system32", "spool"),
+                       Path.Combine(winDir, "system32", "spool", "drivers"),
+                        winDir,
+                        root,
+                    };
+
+
+                SaveFiles(devices[i], driverDir, searchWeights);
 
                 totalPgrs.Invoke(new Action(() => totalPgrs.Value = i + 1));
             }
         }
 
-        private void SaveFiles(Device device, string saveDir)
+        private void SaveFiles(Device device, string saveDir, List<string> search)
         {
             progressBar2.Invoke(new Action(() => progressBar2.Maximum = device.Files.Count));
             progressBar2.Invoke(new Action(() => progressBar2.Value = 0));
@@ -87,7 +123,7 @@ namespace DriverPackGenerator
             for (int i = 0; i < device.Files.Count; i++)
             {
                 currentLbl.Invoke(new Action(() => currentLbl.Text = device.Files[i]));
-                var src = FindFile(device.Files[i]);
+                var src = FindFile(device.Files[i], search);
                 if(src != null)
                     File.Copy(src, Path.Combine(saveDir, Path.GetFileName(src)), true);
 
@@ -95,28 +131,9 @@ namespace DriverPackGenerator
             }
         }
 
-        private string FindFile(string name)
+        private string FindFile(string name, List<string> search)
         {
             if (File.Exists(name)) return name;
-
-            var root = Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.Windows));
-            var winDir = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-
-            var search = new string[]
-            {
-                root,
-                winDir,
-                Path.Combine(winDir, "system32"),
-                Path.Combine(winDir, "system32", "drivers"),
-                Path.Combine(winDir, "system32", "DriverStore", "FileRepository"),
-                Path.Combine(winDir, "system32", "CatRoot"),
-                Path.Combine(winDir, "INF"),
-                Path.Combine(winDir, "Help"),
-                Path.Combine(winDir, "Fonts"),
-                Path.Combine(winDir, "system"),
-                Path.Combine(winDir, "system32", "spool"),
-                Path.Combine(winDir, "system32", "spool", "drivers"),
-            };
 
             // Perform quick search
             foreach (var sDir in search)
@@ -124,6 +141,11 @@ namespace DriverPackGenerator
                 var files = Directory.EnumerateFiles(sDir, "*.*", SearchOption.TopDirectoryOnly).ToList();
                 foreach (var file in files.Where(file => Path.GetFileName(file).Equals(name)))
                 {
+                    if (search.IndexOf(sDir) > 0)
+                    {
+                        search.Remove(sDir);
+                        search.Insert(0, sDir);
+                    }
                     return file;
                 }
             }
@@ -139,6 +161,11 @@ namespace DriverPackGenerator
                         var files = Directory.EnumerateFiles(dir, "*.*", SearchOption.TopDirectoryOnly).ToList();
                         foreach (var file in files.Where(file => Path.GetFileName(file).Equals(name)))
                         {
+                            if (search.IndexOf(sDir) > 0)
+                            {
+                                search.Remove(sDir);
+                                search.Insert(0, sDir);
+                            }
                             return file;
                         }
                     }

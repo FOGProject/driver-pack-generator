@@ -105,6 +105,17 @@ namespace DriverPackGenerator
             try
             {
                 var reader = new INFReader(infPath);
+
+                // Check for catalog file
+                var version = reader.GetSection("Version");
+                if (version.ContainsKey("CatalogFile"))
+                {
+                    foreach (var catalog in version["CatalogFile"])
+                    {
+                        Files.Add(catalog);
+                    }
+                }
+
                 var data = reader.GetSection(section);
                 if (data.Keys.Count == 0) throw new Exception("No data in section");
 
